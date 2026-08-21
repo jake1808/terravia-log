@@ -20,9 +20,12 @@ class User(db.Model):
 
 class Pilot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(120), nullable=True)
+    phone_number = db.Column(db.String(30), nullable=True)
     license_number = db.Column(db.String(100), unique=True, nullable=False)
-    license_expiration_date = db.Column(db.Date, nullable=False)
+    license_expiration_date = db.Column(db.Date, nullable=True)
     license_type = db.Column(db.String(50), nullable=False)
     license_rating = db.Column(db.String(50), nullable=False)
     is_active = db.Column(db.Boolean, default=False)
@@ -34,7 +37,10 @@ class Pilot(db.Model):
     def to_dict(self):
         return {
                 "id": self.id, 
-                "user_id": self.user_id, 
+                "user_id": self.user_id,
+                "name": self.name, 
+                "email": self.email,
+                "phone_number": self.phone_number,
                 "license_number": self.license_number, 
                 "license_expiration_date": self.license_expiration_date, 
                 "license_type": self.license_type, 
@@ -46,7 +52,8 @@ class Drone(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     call_sign = db.Column(db.String(100), unique=True, nullable=False)
     serial_number = db.Column(db.String(100), unique=True, nullable=False)
-    max_flight_time = db.Column(db.Integer, nullable=False)  # in minutes
+    model = db.Column(db.String(100), nullable=False) 
+    max_flight_time = db.Column(db.Integer)  # in minutes
     is_active = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
@@ -56,6 +63,7 @@ class Drone(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "model": self.model,
             "call_sign": self.call_sign,
             "serial_number": self.serial_number,
             "max_flight_time": self.max_flight_time,

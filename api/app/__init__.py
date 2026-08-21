@@ -1,3 +1,4 @@
+from app.seed import seed_db
 from flask import Flask
 from app.config import Config
 from app.models import db
@@ -22,7 +23,7 @@ def create_app():
     # Create tables automatically
     with app.app_context():
         db.create_all()
-
+        seed_db()  
     return app
 
 # from flask import Flask
