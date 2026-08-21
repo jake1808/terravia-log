@@ -1,1 +1,4 @@
-api/.env
+# Environment variable files (contain secrets) — in any directory
+.env
+*.env
+!.env.example
