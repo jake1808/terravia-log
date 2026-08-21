@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'api_service.dart';
+import '../api_service.dart';
 
 class AuthProvider with ChangeNotifier{
   bool _isLoading = false;
