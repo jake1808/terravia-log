@@ -73,3 +73,33 @@ class MissionLogs(db.Model):
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     updated_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "pilot_id": self.pilot_id,
+            "drone_id": self.drone_id,
+            "location": self.location,
+            "clearance_code": self.clearance_code,
+            "active": self.active
+        }
+
+class FlightLogs(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    mission_id = db.Column(db.Integer, db.ForeignKey('mission_logs.id'), nullable=False)
+    flight_time = db.Column(db.Integer, nullable=False)  # in minutes
+    take_off_time = db.Column(db.DateTime, nullable=False)
+    landing_time = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    updated_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "mission_id": self.mission_id,
+            "flight_time": self.flight_time,
+            "take_off_time": self.take_off_time,
+            "landing_time": self.landing_time
+        }
