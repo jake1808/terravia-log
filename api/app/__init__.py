@@ -1,6 +1,8 @@
 from flask import Flask
 from app.config import Config
 from app.models import db
+from app.routes.auth import auth_bp
+from app.routes.protected import protected_bp
 
 def create_app():
     app = Flask(__name__)
@@ -12,8 +14,7 @@ def create_app():
     db.init_app(app)
     
     # Import and register Blueprints (URLs)
-    from api.app.routes.auth import auth_bp
-    from api.app.routes.protected import protected_bp
+    
     
     app.register_blueprint(auth_bp)
     app.register_blueprint(protected_bp)
