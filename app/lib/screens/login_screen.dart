@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen>{
 
     try{
       await authProvider.login(_emailController.text, _passwordController.text);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
     } catch(e){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login failed: $e')));
     }
